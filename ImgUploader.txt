@@ -1,0 +1,66 @@
+Copyright (c) 2007 Digital Gemstones
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+Except as contained in this notice, the name(s) of the above copyright holders shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization.
+
+The end-user documentation included with the redistribution, if any, must include the following acknowledgment: 
+"This product includes software developed by Digital Gemstones (http://www.digitalgemstones.com/)", 
+in the same place and form as other third-party acknowledgments. Alternately, this acknowledgment may appear in the software itself, in the same form and location as other such third-party acknowledgments.
+
+---
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+
+The ImgUploader class is very self contained, all you really need to know for basic usage is as follows:
+Constructor
+  Pass to the constructor the information of one item in the $_FILES array - for instance, $_FILES['uploadedImage'] if your form used the name "uploadedImage".
+upload_unscaled()
+  upload_unscaled() takes two parameters, a directory (or series of directories) and a filename WITHOUT the extention.
+    the directories should be from the web root (though you can of course use ../ to navigate above that).
+    the filename will be appended with the appropriate extention automatically.
+upload()
+  upload() takes two additional parameters to upload_unscaled(), a maximum width and height for the image.
+    The final image will be scaled down so it is no larger than either the width or height passed.
+  there is an optional fifth parameter which defaults to false which ensure that images smaller than the maximum width and height are not scaled up
+    Passing true to this parameter will scale up small images, though this may reduce quality
+    
+upload_unscaled() and upload() can be called as many times as needed, for instance to create a thumbnail in one directory, a medium image in another, and the full sized image (using upload_unscaled()) in an third directory.
+
+--------------------------------------------------------------------------------
+
+Maximum File Size
+  This script will allow images up to 5MB.  To change that, simply modify the if statement on line 55.
+    The script does not use the MAX_FILE_SIZE parameter of the html form since a malicious user can easily spoof that value.
+
+Error Checking
+  Both upload_unscaled() and upload() return false on failure, or the location of the image (from the web root) on success.
+    Any failure, be it at upload time, not an image, or a nonexistant directory, will return false.
+    Call getError() to return the associated error code and handle the error accordingly.
+  Possible Errors and their codes:
+    101 - File is too large
+    102 - Upload failed or was interrupted
+    103 - File was not uploaded
+    104 - File is not an image
+    105 - File is not an acceptable image (gif, jpeg, png)
+    106 - File could not be saved because the directory does not exist
+  I do not throw exceptions for several reasons - some personal, some practical.  If you want to implement this class using exceptions, I invite you to send me the code once you're done, and I'll add it to the download - with credit, of course.
+
+--------------------------------------------------------------------------------
+
+Example Usage:
+<?php
+include 'ImgUploader.class.php';
+
+$img = new imgUploader($_FILES['file']);
+if($name = $img->upload('images/demoFile', '1000', 400,400))
+  echo '<img src="'.$name.'" alt="aPicture" />';
+  // will output as <img src="/images/demoFile/1000.jpg" alt="aPicture" /> assuming file is a jpg
+else
+  echo 'ERROR! '.$img->getError();
+}
+?>
