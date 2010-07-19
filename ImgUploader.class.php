@@ -114,7 +114,7 @@ class ImgUploader
       case IMAGETYPE_PNG: $image_o = imagecreatefrompng($this->tmp_name); $ext = '.png'; break;
     }
     
-    $filepath = 'images/'.$folder.'/';
+    $filepath = $folder;
     if(is_dir($_SERVER['DOCUMENT_ROOT'].$filepath))
       $filepath .= $name.$ext;
     else
