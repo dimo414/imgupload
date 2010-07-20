@@ -1,28 +1,25 @@
-Copyright (c) 2007 Digital Gemstones
+Easy, secure image uploader for handling form submissions with PHP
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-Except as contained in this notice, the name(s) of the above copyright holders shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization.
-
-The end-user documentation included with the redistribution, if any, must include the following acknowledgment: 
-"This product includes software developed by Digital Gemstones (http://www.digitalgemstones.com/)", 
-in the same place and form as other third-party acknowledgments. Alternately, this acknowledgment may appear in the software itself, in the same form and location as other such third-party acknowledgments.
-
----
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+This tool was developed by Michael Diamond (http://www.DigitalGemstones.com) ©2007
+and is released freely for personal and corporate use under the licence which can be found at: 
+http://digitalgemstones.com/licence.php 
+and can be summarized as: 
+You are free to use this software for any purpose as long as Digital Gemstones is credited, 
+and may redistribute the software in its original form or modified as you see fit,  
+as long as any credit comments in the code remain unchanged. 
 
 --------------------------------------------------------------------------------
 
 The ImgUploader class is very self contained, all you really need to know for basic usage is as follows:
+
 Constructor
   Pass to the constructor the information of one item in the $_FILES array - for instance, $_FILES['uploadedImage'] if your form used the name "uploadedImage".
+  
 upload_unscaled()
   upload_unscaled() takes two parameters, a directory (or series of directories) and a filename WITHOUT the extention.
     the directories should be from the web root (though you can of course use ../ to navigate above that).
     the filename will be appended with the appropriate extention automatically.
+
 upload()
   upload() takes two additional parameters to upload_unscaled(), a maximum width and height for the image.
     The final image will be scaled down so it is no larger than either the width or height passed.
@@ -48,11 +45,10 @@ Error Checking
     104 - File is not an image
     105 - File is not an acceptable image (gif, jpeg, png)
     106 - File could not be saved because the directory does not exist
-  I do not throw exceptions for several reasons - some personal, some practical.  If you want to implement this class using exceptions, I invite you to send me the code once you're done, and I'll add it to the download - with credit, of course.
 
 --------------------------------------------------------------------------------
 
-Example Usage:
+Example Usage - see imguploader.test.php for a more complete example:
 <?php
 include 'ImgUploader.class.php';
 

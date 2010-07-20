@@ -1,9 +1,14 @@
 <?php
 
-// This class was written by Michael Diamond and DigitalGemstones.com ©2007
-// It is released for any and all not-for-profit use
-// If you wish to use this script to directly or indirectly make a profit, you must first contact and receive permission from Michael Diamond
-// http://www.DigitalGemstones.com/contact/
+/* 
+This tool was developed by Michael Diamond (http://www.DigitalGemstones.com) ©2007
+and is released freely for personal and corporate use under the licence which can be found at: 
+http://digitalgemstones.com/licence.php 
+and can be summarized as: 
+You are free to use this software for any purpose as long as Digital Gemstones is credited, 
+and may redistribute the software in its original form or modified as you see fit,  
+as long as any credit comments in the code remain unchanged. 
+*/ 
 
 define('MAX_SIZE_EXCEDED', 101);
 define('UPLOAD_FAILED', 102);
@@ -114,7 +119,7 @@ class ImgUploader
       case IMAGETYPE_PNG: $image_o = imagecreatefrompng($this->tmp_name); $ext = '.png'; break;
     }
     
-    $filepath = $folder;
+    $filepath = $folder.(substr($folder,-1) != '/' ? '/' : '');
     if(is_dir($_SERVER['DOCUMENT_ROOT'].$filepath))
       $filepath .= $name.$ext;
     else
