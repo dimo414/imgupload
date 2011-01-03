@@ -24,7 +24,7 @@
 			} else echo 'Upload an Image';
 			?>
 		</p>
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+		<form action="" method="POST" enctype="multipart/form-data">
 			<p>
 				<input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
 				<input type="file" name="file" />
