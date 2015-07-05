@@ -1,16 +1,5 @@
 <?php
 
-/* 
-This tool was developed by Michael Diamond (http://www.DigitalGemstones.com) ©2007
-and is released freely for personal and corporate use under the licence which can be found at: 
-http://digitalgemstones.com/licence.php 
-and can be summarized as: 
-You are free to use this software for any purpose and may redistribute the software 
-in its original form or modified as you see fit, as long as any credit comments
-in the code remain unchanged, and you do not release it under a different licence, or
-remove the copyright notice in the files.
-*/ 
-
 define('MAX_SIZE_EXCEDED', 101);
 define('UPLOAD_FAILED', 102);
 define('NO_UPLOAD', 103);
